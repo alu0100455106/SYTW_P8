@@ -1,21 +1,17 @@
 require 'sinatra'
 require 'sass'
+require 'rubygems'
 require 'pp'
 require './usuarios.rb'
 require 'haml'
 
+
+
 settings.port = ENV['PORT'] || 4567
 #enable :sessions
+
 use Rack::Session::Pool, :expire_after => 2592000
-#set :session_secret, 'super secret'
-
-#configure :development, :test do
-#  set :sessions, :domain => 'example.com'
-#end
-
-#configure :production do
-#  set :sessions, :domain => 'herokuapp.com'
-#end
+set :session_secret, 'super secret'
 
 configure :development do
   DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
@@ -25,8 +21,15 @@ configure :production do
   DataMapper.setup(:default, ENV['DATABASE_URL'])
 end
 
-#DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
 DataMapper.auto_upgrade!
+
+#configure :development, :test do
+#  set :sessions, :domain => 'example.com'
+#end
+
+#configure :production do
+#  set :sessions, :domain => 'herokuapp.com'
+#end
 
 module TicTacToe
   HUMAN = CIRCLE = "circle" # human
@@ -51,12 +54,13 @@ module TicTacToe
     @board
   end
 
-  def board
-    session["bs"]
-  end
-
   def usuario
     session["usuario"]
+  end
+
+
+  def board
+    session["bs"]
   end
 
   def [] key
@@ -145,7 +149,7 @@ module TicTacToe
 
   def tie?
     ((winner != COMPUTER) && (winner != HUMAN))
-  end  
+  end
 end
 
 
@@ -153,7 +157,7 @@ end
 helpers TicTacToe
 
 #Añadimos
-get '/' do
+get "/" do
   session["bs"] = inicializa()
   haml :game, :locals => { :b => board, :m => '' }
 end
@@ -196,11 +200,11 @@ get '/humanwins' do
     m = if human_wins? then
           if (session["usuario"] != nil)
             el_usuario = Usuario.first(:username => session["usuario"])
+            
             el_usuario.ganadas += 1
             el_usuario.jugadas += 1
             el_usuario.save
             pp el_usuario
-            p "---------"
           end
           '¡Has ganado!'
         else 
@@ -219,9 +223,11 @@ get '/computerwins' do
     m = if computer_wins? then
           if (session["usuario"] != nil)
             el_usuario = Usuario.first(:username => session["usuario"])
+            
             el_usuario.perdidas += 1
             el_usuario.jugadas += 1
             el_usuario.save
+            pp el_usuario
           end
           '¡Has perdido!'
         else 
@@ -240,6 +246,7 @@ get '/tie' do
     m = if tie? then
           if (session["usuario"] != nil)
             el_usuario = Usuario.first(:username => session["usuario"])
+            
             el_usuario.jugadas += 1
             el_usuario.empatadas += 1
             el_usuario.save
@@ -264,6 +271,7 @@ post '/' do
     nick = params[:usuario]
     nick = nick["username"]
     u = Usuario.first(:username => "#{nick}" )
+    
     if u == nil
       usuario = Usuario.create(params[:usuario])
       usuario.save
