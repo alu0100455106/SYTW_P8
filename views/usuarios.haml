@@ -1,0 +1,49 @@
+.button
+  %a{:href=>"/"}
+    %img{:src=>"/images/jugar.gif"}
+        
+.message
+  %center
+    %img{:src=>"/images/machango.gif"}
+    %table
+      %tr
+        %th
+        %th Nombre
+        %th
+        %th
+        %th
+        %th
+        %th
+        %th                
+        %th
+        %th Ganadas
+        %th
+        %th Perdidas
+        %th
+        %th Empates
+        %th
+        %th Jugadas
+                                
+      - @usuarios.sort_by {|k, v| v}.reverse.each do |usuario| 
+        %tr
+          %td
+          %td
+            #{usuario.username}
+          %td
+          %td
+          %td
+          %td
+          %td
+          %td
+          %td
+          %td
+            #{usuario.ganadas}
+          %td
+          %td
+            #{usuario.perdidas}
+          %td
+          %td
+            #{usuario.empatadas}
+          %td
+          %td
+            #{usuario.jugadas}

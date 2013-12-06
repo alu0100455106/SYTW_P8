@@ -1,0 +1,83 @@
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  background: url("/images/blackboard.jpg") repeat;
+  background-size: cover; }
+
+.gameboard {
+  width: 450px;
+  margin: 0 auto;
+  text-align: center; }
+
+.gamerow {
+  clear: both; }
+
+.cell {
+  color: blue;
+  background-color: white;
+  opacity: 0.6;
+  width: 52.94118px;
+  height: 52.94118px;
+  margin: 4.41176px;
+  padding: 40.72398px;
+  float: left; }
+  .cell:hover {
+    color: black;
+    background-color: #9900ff; }
+
+#a1:hover {
+  background-color: #99ff66; }
+
+#a2:hover {
+  background-color: #ff9933; }
+
+#a3:hover {
+  background-color: #99ff66; }
+
+#b1:hover {
+  background-color: #ff9933; }
+
+#b2:hover {
+  background-color: #99ff66; }
+
+#b3:hover {
+  background-color: #ff9933; }
+
+#c1:hover {
+  background-color: #99ff66; }
+
+#c2:hover {
+  background-color: #ff9933; }
+
+#c3:hover {
+  background-color: #99ff66; }
+
+.cross {
+  background: url("/images/cruz.gif") no-repeat;
+  background-size: cover; }
+
+.circle {
+  background: url("/images/circulo.gif") no-repeat;
+  background-size: cover; }
+
+.base-font, .message {
+  color: #f9a7b0;
+  font: 22px Helvetica, Arial, sans-serif; }
+
+.message {
+  display: inline;
+  background-color: transparent;
+  color: black; }
+
+.barra-superior {
+  text-align: right;
+  color: black;
+  margin-top: 11%;
+  margin-right: 12%; }
+
+.marcador {
+  margin-top: 0%;
+  margin-left: 10%; }
+
+.button {
+  margin-top: 12%;
+  margin-left: 12%; }
